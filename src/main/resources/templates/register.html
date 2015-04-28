@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Watch Your Movie</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+<script src="../static/js/bootstrap.min.js"
+	th:src="@{/js/bootstrap.min.js}"></script>
+
+<style>
+#heading {
+	text-align: center;
+}
+
+.registerForm {
+	border: 1px solid grey;
+	border-radius: 10px;
+	margin-top: 120px;
+	margin-bottom: 60px;
+}
+
+#genrelist {
+	width: 150px;
+}
+
+.btn {
+	margin-bottom: 20px;
+}
+
+.footer {
+	bottom: 0;
+	width: 100%;
+	height: 80px;
+	background-color: #f5f5f5;
+}
+</style>
+</head>
+<body>
+
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" th:href="@{/}">MovieRec</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a th:href="@{/}">Home</a></li>
+					<li><a th:href="@{/}">About</a></li>
+					<li><a th:href="@{/}">Team 14</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+
+	<div id="register" class="container">
+		<div class="row">
+			<!-- Open Row -->
+			<div class="col-md-6 col-md-offset-3 registerForm">
+				<!-- Open Col -->
+				<h1 id="heading">Registration Form</h1>
+
+				<form role="form" action="#" th:action="@{/register}"
+					th:object="${userregister}" method="post">
+					<div class="form-group">
+
+						<label for="fname">Your First Name:</label> <input
+							required="required" type="text" id="fname" name="fname"
+							class="form-control" placeholder="Your First Name"
+							th:field="*{firstName}" />
+
+					</div>
+
+					<div class="form-group">
+
+						<label for="lname">Your Last Name:</label> <input type="text"
+							id="lname" name="lname" class="form-control"
+							placeholder="Your Last Name" th:field="*{lastName}" />
+
+					</div>
+
+					<div class="form-group">
+
+						<label for="email">Your Email Address:</label> <input type="email"
+							id="email" name="email" class="form-control"
+							placeholder="Your Email Address" th:field="*{email}" />
+
+					</div>
+
+					<div class="form-group">
+
+						<label for="pass">Password:</label> <input required="required"
+							type="password" id="pass" name="pass" class="form-control"
+							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" placeholder="*************" th:field="*{password}" />
+
+					</div>
+
+					<div class="form-group">
+
+						<label for="cpass">Confirm Password:</label> <input
+							required="required" type="password" id="cpass" name="cpass"
+							class="form-control" onblur="chkCnfPass()" placeholder="*************" />
+							<span id="cPasswordStatus"></span>
+
+					</div>
+
+					<div class="form-group">
+
+						<label for="genrelist">Movie Genres that you like:</label> <select
+							multiple="multiple" id="genrelist" name="genrelist"
+							class="form-control" th:field="*{genres}">
+							<option value="ACTION">Action</option>
+							<option value="DRAMA">Drama</option>
+							<option value="ROMANTIC">Romantic</option>
+							<option value="SCI_FI">Science-Fiction</option>
+							<option value="COMEDY">Comedy</option>
+							<option value="ANIMATION">Animation</option>
+							<option value="ADVENTURE">Adventure</option>
+							<option value="DOCUMENTARY">Documentary</option>
+							<option value="HORROR">Horror</option>
+							<option value="MYSTERY">Mystery</option>
+						</select>
+
+					</div>
+					<br />
+					<h4>Please rate these movies for getting best
+						recommendations:</h4>
+
+					<div class="form-group">
+
+						<label for="rate1">Toy Story</label> <select class="form-control" id="rate1" th:field="*{rating1}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+
+					</div>
+					
+					<div class="form-group">
+
+						<label for="rate2">Madness of King George</label> <select class="form-control" id="rate2" th:field="*{rating2}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+
+					</div>
+					
+					<div class="form-group">
+
+						<label for="rate3">Scream</label> <select class="form-control" id="rate3" th:field="*{rating3}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+
+					</div>
+					
+					<div class="form-group">
+
+						<label for="rate4">Terminator 2</label> <select class="form-control" id="rate4" th:field="*{rating4}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+
+					</div>
+					
+					<div class="form-group">
+
+						<label for="rate5">Forrest Gump</label> <select class="form-control" id="rate5" th:field="*{rating5}">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+
+					</div>
+					
+					<input type="submit" class="btn btn-success" value="Submit" /> <input
+						type="reset" class="btn btn-danger" value="Reset" />
+
+				</form>
+			</div>
+			<!-- Close Col -->
+		</div>
+		<!-- Close Row -->
+	</div>
+
+
+
+	<footer class="footer">
+		<div class="container">
+			<p style="margin-top: 10px;">Posted by: Team14_CMPE-239</p>
+		</div>
+	</footer>
+
+	<script>
+	
+	function chkCnfPass(){
+
+		 if(document.getElementById("cpass").value != document.getElementById("pass").value){
+
+		 	document.getElementById("cPasswordStatus").style.display = "block";
+		 	document.getElementById("cPasswordStatus").innerHTML = "Passwords do not match!";
+		 	document.getElementById("pass").focus();
+		 	document.getElementById("pass").value = "";
+		 	document.getElementById("cpass").value = "";
+		 }
+
+		 else{
+		 	document.getElementById("cPasswordStatus").style.display = "none";
+		 }
+	}
+	</script>
+</body>
+</html>
